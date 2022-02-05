@@ -36,8 +36,8 @@ const userSchema = new Schema(
     profilePicture: {
       type: String,
     },
-    followers: [Schema.Types.ObjectId],
-    following: [Schema.Types.ObjectId],
+    followers: [{ type: Schema.Types.ObjectId, ref: "users" }],
+    following: [{ type: Schema.Types.ObjectId, ref: "users" }],
   },
   { timestamps: { createdAt: true } }
 );
