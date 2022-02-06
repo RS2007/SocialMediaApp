@@ -45,3 +45,25 @@ module.exports.getFollowing = async (req, res) => {
     res.status(500).json({ error: "Database error" });
   }
 };
+
+module.exports.deleteUser = async (req, res) => {
+  try {
+    const { id } = res.locals;
+    const deletedUser = await userModel.findByIdAndDelete(id);
+    res.status(200).send("User deleted succesfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Database error" });
+  }
+};
+
+module.exports.editUser = async (req, res) => {
+  try {
+    const { id } = res.locals;
+    const user = await userModel.findByIdAndUpdate(id, req.body);
+    res.status(200).send("User edited succesfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).jsoN({ error: "Database error" });
+  }
+};

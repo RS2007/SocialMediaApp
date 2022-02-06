@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Schema, Model } = mongoose;
+const { Schema, model } = mongoose;
 
 const commentSchema = new Schema(
   {
@@ -16,4 +16,4 @@ const commentSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = new Model("comments", commentSchema);
+module.exports = new model("comments", commentSchema);
