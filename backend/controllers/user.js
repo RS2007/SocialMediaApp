@@ -25,11 +25,16 @@ module.exports.getFollowers = async (req, res) => {
 module.exports.register = async (req, res) => {
   try {
     const { email, password, fullName, username } = req.body;
-    const newUser = await new User({ email, password, fullName, username });
+    const newUser = await new userModel({
+      email,
+      password,
+      fullName,
+      username,
+    });
     await newUser.save();
     res.status(200).send("You have registered succesfully");
   } catch (error) {
-    console.log(err.message);
+    console.log(error.message);
     res.status(500).json({ error: "Registration not succesful" });
   }
 };
