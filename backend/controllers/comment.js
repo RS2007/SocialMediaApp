@@ -1,19 +1,19 @@
-const postModel = require("../models/post");
+const commentModel = require("../models/comment");
 
-module.exports.createPost = async (req, res) => {
+module.exports.createComment = async (req, res) => {
   try {
     const { id: user } = res.locals;
-    const { pic, desc } = req.body;
-    const newPost = new postModel({ user, pic, desc });
-    await newPost.save();
-    res.status(200).send("New post created succesfully");
+    const { content } = req.body;
+    const newComment = new commentModel({ user, content });
+    await newComment.save();
+    res.status(200).send("New comment created succesfully");
   } catch (error) {
     console.log(error);
     res.status(500).json("Database error");
   }
 };
 
-module.exports.deletePost = async (req, res) => {
+module.exports.deleteComment = async (req, res) => {
   try {
     console.log("hello");
   } catch (error) {
@@ -22,7 +22,7 @@ module.exports.deletePost = async (req, res) => {
   }
 };
 
-module.exports.getPosts = async (req, res) => {
+module.exports.getComment = async (req, res) => {
   try {
     console.log("hello");
   } catch (error) {
@@ -31,7 +31,7 @@ module.exports.getPosts = async (req, res) => {
   }
 };
 
-module.exports.updatePost = async (req, res) => {
+module.exports.updateComment = async (req, res) => {
   try {
     console.log("hello");
   } catch (error) {

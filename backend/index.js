@@ -5,6 +5,8 @@ dotenv.config();
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/posts");
+const commentRoutes = require("./routes/comments");
 
 async function connectToDB() {
   try {
@@ -21,6 +23,8 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(cookieParser());
 app.use("/user", userRoutes);
+app.use("/post", postRoutes);
+app.use("/comment", commentRoutes);
 
 app.listen(PORT, () => {
   console.log("Server listening at " + PORT);

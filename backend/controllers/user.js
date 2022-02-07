@@ -55,7 +55,7 @@ module.exports.getFollowing = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
   try {
     const { id } = res.locals;
-    const deletedUser = await userModel.findByIdAndDelete(id).exec();
+    await userModel.findByIdAndDelete(id).exec();
     res.status(200).send("User deleted succesfully");
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ module.exports.deleteUser = async (req, res) => {
 module.exports.editUser = async (req, res) => {
   try {
     const { id } = res.locals;
-    const user = await userModel.findByIdAndUpdate(id, req.body).exec();
+    await userModel.findByIdAndUpdate(id, req.body).exec();
     res.status(200).send("User edited succesfully");
   } catch (error) {
     console.log(error);
@@ -78,12 +78,12 @@ module.exports.followUser = async (req, res) => {
   try {
     const { id: userId } = res.locals;
     const { id: toFollowId } = req.params;
-    const currentUser = await userModel
+    await userModel
       .findByIdAndUpdate(userId, {
         $push: { following: toFollowId },
       })
       .exec();
-    const toFollowUser = await userModel
+    await userModel
       .findByIdAndUpdate(toFollowId, {
         $push: { followers: userId },
       })
@@ -98,8 +98,10 @@ module.exports.followUser = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { _id: id } = await userModel.find({ email }).exec();
-    const passwordCorrect = await compare(password, user.password).exec();
+    const { _id: id, password: hashedPassword } = await userModel
+      .find({ email })
+      .exec();
+    const passwordCorrect = await compare(password, hashedPassword).exec();
     if (passwordCorrect) {
       res.cookie("USER_DETAILS", { id });
       res.status(200).send("Succesful Login");
