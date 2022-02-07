@@ -3,6 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user");
 
 async function connectToDB() {
@@ -18,6 +19,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.urlencoded());
 app.use(express.json());
+app.use(cookieParser());
 app.use("/user", userRoutes);
 
 app.listen(PORT, () => {

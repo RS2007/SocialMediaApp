@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const verifyMiddleware = (req, res, next) => {
   try {
-    const payload = jwt.verify(req.cookies[USER_DETAILS]);
+    console.log(req.cookies);
+    const payload = JSON.parse(req.cookies["USER_DETAILS"]);
     res.locals = payload;
     return next();
   } catch (error) {

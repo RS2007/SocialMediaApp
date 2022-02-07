@@ -1,4 +1,5 @@
 const userModel = require("../models/user");
+const { compare } = require("bcrypt");
 
 module.exports.getUserById = async (req, res) => {
   const { id } = req.params;
@@ -14,8 +15,8 @@ module.exports.getUserById = async (req, res) => {
 module.exports.getFollowers = async (req, res) => {
   try {
     const { id } = res.locals;
-    const user = await userModel.findById(id).populate("users").exec();
-    res.status(200).send(user.followers);
+    const user = await userModel.findById(id).populate("followers").exec();
+    res.status(200).json({ followers: user.followers });
   } catch (err) {
     console.log(err.message);
     res.status(500).json({ error: "Database error" });
@@ -31,7 +32,8 @@ module.exports.register = async (req, res) => {
       fullName,
       username,
     });
-    await newUser.save();
+    const { _id: id } = await newUser.save();
+    res.cookie("USER_DETAILS", { id });
     res.status(200).send("You have registered succesfully");
   } catch (error) {
     console.log(error.message);
@@ -42,9 +44,8 @@ module.exports.register = async (req, res) => {
 module.exports.getFollowing = async (req, res) => {
   try {
     const { id } = res.locals;
-    const following = await userModel.findById(id).populate("users").exec()
-      .following;
-    res.status(200).json(following);
+    const user = await userModel.findById(id).populate("following").exec();
+    res.status(200).json({ following: user.following });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ error: "Database error" });
@@ -54,7 +55,7 @@ module.exports.getFollowing = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
   try {
     const { id } = res.locals;
-    const deletedUser = await userModel.findByIdAndDelete(id);
+    const deletedUser = await userModel.findByIdAndDelete(id).exec();
     res.status(200).send("User deleted succesfully");
   } catch (error) {
     console.log(error);
@@ -65,10 +66,48 @@ module.exports.deleteUser = async (req, res) => {
 module.exports.editUser = async (req, res) => {
   try {
     const { id } = res.locals;
-    const user = await userModel.findByIdAndUpdate(id, req.body);
+    const user = await userModel.findByIdAndUpdate(id, req.body).exec();
     res.status(200).send("User edited succesfully");
   } catch (error) {
     console.log(error);
-    res.status(500).jsoN({ error: "Database error" });
+    res.status(500).json({ error: "Database error" });
+  }
+};
+
+module.exports.followUser = async (req, res) => {
+  try {
+    const { id: userId } = res.locals;
+    const { id: toFollowId } = req.params;
+    const currentUser = await userModel
+      .findByIdAndUpdate(userId, {
+        $push: { following: toFollowId },
+      })
+      .exec();
+    const toFollowUser = await userModel
+      .findByIdAndUpdate(toFollowId, {
+        $push: { followers: userId },
+      })
+      .exec();
+    res.status(200).send("User followed succesfully");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Database error" });
+  }
+};
+
+module.exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const { _id: id } = await userModel.find({ email }).exec();
+    const passwordCorrect = await compare(password, user.password).exec();
+    if (passwordCorrect) {
+      res.cookie("USER_DETAILS", { id });
+      res.status(200).send("Succesful Login");
+    } else {
+      res.status(400).json({ error: "Incorrect Password" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Database error" });
   }
 };

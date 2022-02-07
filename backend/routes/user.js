@@ -1,11 +1,14 @@
 const router = require("express").Router();
 const userController = require("../controllers/user.js");
+const verifyMiddleware = require("../utils/verifyMiddleware.js");
 
-router.get("/:id", userController.getUserById);
-router.get("/followers", userController.getFollowers);
+router.get("/followers", verifyMiddleware, userController.getFollowers);
 router.post("/register", userController.register);
-router.get("/following", userController.getFollowing);
-router.delete("/delete", userController.deleteUser);
-router.post("/update", userController.editUser);
+router.post("/login", userController.login);
+router.get("/following", verifyMiddleware, userController.getFollowing);
+router.delete("/delete", verifyMiddleware, userController.deleteUser);
+router.post("/update", verifyMiddleware, userController.editUser);
+router.put("/follow/:id", verifyMiddleware, userController.followUser);
+router.get("/:id", verifyMiddleware, userController.getUserById);
 
 module.exports = router;
