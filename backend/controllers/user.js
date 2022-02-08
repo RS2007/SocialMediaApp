@@ -99,9 +99,11 @@ module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const { _id: id, password: hashedPassword } = await userModel
-      .find({ email })
+      .findOne({ email })
+      .lean()
       .exec();
-    const passwordCorrect = await compare(password, hashedPassword).exec();
+    console.log(password, hashedPassword);
+    const passwordCorrect = await compare(password, hashedPassword);
     if (passwordCorrect) {
       res.cookie("USER_DETAILS", { id });
       res.status(200).send("Succesful Login");

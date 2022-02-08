@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React } from "react";
 import {
   Heading,
   Image,
@@ -12,19 +12,30 @@ import {
   HStack,
   Icon,
   Link,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { FaFacebookSquare } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 import phones from "/phones.png";
 import "./login.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-  const passwordHandler = (e) => {
-    setPassword(e.target.value);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const postData = async (data) => {
+    console.log(data);
+    try {
+      await axios.post("http://localhost:5000/user/login", data, {
+        withCredentials: true,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -50,44 +61,58 @@ const Login = () => {
               Instaclone
             </Heading>
             <VStack>
-              <FormControl isRequired>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={emailHandler}
-                  placeholder="Email"
-                  bg="background"
-                  color="loginFontColor"
-                  fontSize="16px"
-                  fontFamily="-apple-system,system-ui"
-                  lineHeight="18px"
+              <form onSubmit={handleSubmit(postData)}>
+                <FormControl isRequired isInvalid={errors.email}>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    bg="background"
+                    color="loginFontColor"
+                    fontSize="16px"
+                    fontFamily="-apple-system,system-ui"
+                    lineHeight="18px"
+                    w="100%"
+                    marginBottom="10px"
+                    {...register("email", {
+                      required: "Required",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "invalid email adress",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <FormErrorMessage>Invalid Email</FormErrorMessage>
+                  )}
+                </FormControl>
+                <FormControl isRequired isInvalid={errors.password}>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    bg="background"
+                    color="loginFontColor"
+                    fontSize="16px"
+                    fontFamily="-apple-system,system-ui"
+                    lineHeight="18px"
+                    w="100%"
+                    marginBottom="10px"
+                    {...register("password", { required: "Required" })}
+                  />
+                  {errors.password && (
+                    <FormErrorMessage>Invalid Password</FormErrorMessage>
+                  )}
+                </FormControl>
+                <Button
+                  type="submit"
                   w="100%"
-                />
-              </FormControl>
-              <FormControl isRequired>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={passwordHandler}
-                  placeholder="Password"
-                  bg="background"
-                  color="loginFontColor"
-                  fontSize="16px"
-                  fontFamily="-apple-system,system-ui"
-                  lineHeight="18px"
-                  w="100%"
-                  marginBottom="10px"
-                />
-              </FormControl>
-              <Button
-                w="100%"
-                variant="primary"
-                style={{ marginBottom: "7px !important" }}
-              >
-                Login
-              </Button>
+                  variant="primary"
+                  style={{ marginBottom: "7px !important" }}
+                >
+                  Login
+                </Button>
+              </form>
               <Text>OR</Text>
               <HStack marginTop="50px" cursor="pointer" marginBottom="50px">
                 <Icon as={FaFacebookSquare} color="facebook" />

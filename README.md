@@ -9,10 +9,11 @@
 
 ### Features
 
-- Registration and Login of users using their email as well as google auth(if everything goes well might add github and linkedin auth as well, who knows :) :) )
+- Registration and Login of users using their email as well as facebook auth(if everything goes well might add google and github auth as well, who knows :) :) )
 - Create, Delete, Edit, Like and Comment on posts, similar functionality for the comments
 - Ability to follow users
 - Infinite scroll(Hopefully)
 - Messaging using sockets(Less priority)
 - Search users
 - Randomised feed(Less priority)
+- Forgot Password
