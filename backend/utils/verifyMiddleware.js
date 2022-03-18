@@ -1,5 +1,10 @@
-const jwt = require("jsonwebtoken");
-
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ * @param {express.NextFunction} next
+ * @returns
+ */
 const verifyMiddleware = (req, res, next) => {
   try {
     console.log(req.cookies);

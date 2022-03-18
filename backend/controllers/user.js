@@ -1,6 +1,12 @@
 const userModel = require("../models/user");
 const { compare } = require("bcrypt");
 
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
+
 module.exports.getUserById = async (req, res) => {
   const { id } = req.params;
   try {
