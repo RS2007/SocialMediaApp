@@ -1,10 +1,36 @@
-import { Button, FormControl, Input, Text, VStack } from "@chakra-ui/react";
+import {
+  FormErrorMessage,
+  Button,
+  FormControl,
+  Input,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 export default function Register() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const postData = async (data) => {
+    console.log(data);
+    try {
+      await axios.post("http://localhost:5000/user/register", data, {
+        useCredentials: true,
+      });
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   return (
-    <VStack as="form" w="85%">
+    <VStack as="form" w="85%" onSubmit={handleSubmit(postData)}>
       <Text color="#8e8e8e" fontSize="17px">
         Sign up to see photos and videos from your friends.
       </Text>
@@ -28,8 +54,15 @@ export default function Register() {
           lineHeight="18px"
           w="100%"
           marginBottom="10px"
+          {...register("email", {
+            required: "Required",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "invalid email address",
+            },
+          })}
         />
-        {/* {errors.email && <FormErrorMessage>Invalid Email</FormErrorMessage>} */}
+        {errors.email && <FormErrorMessage>Invalid Email</FormErrorMessage>}
       </FormControl>
       <FormControl isRequired>
         <Input
@@ -43,8 +76,11 @@ export default function Register() {
           lineHeight="18px"
           w="100%"
           marginBottom="10px"
+          {...register("fullName", {
+            required: "Required",
+          })}
         />
-        {/* {errors.email && <FormErrorMessage>Invalid Email</FormErrorMessage>} */}
+        {errors.fullName && <FormErrorMessage>Required</FormErrorMessage>}
       </FormControl>
       <FormControl isRequired>
         <Input
@@ -58,8 +94,11 @@ export default function Register() {
           lineHeight="18px"
           w="100%"
           marginBottom="10px"
+          {...register("username", {
+            required: "Required",
+          })}
         />
-        {/* {errors.email && <FormErrorMessage>Invalid Email</FormErrorMessage>} */}
+        {errors.username && <FormErrorMessage>Required</FormErrorMessage>}
       </FormControl>
       <FormControl isRequired>
         <Input
@@ -73,8 +112,11 @@ export default function Register() {
           lineHeight="18px"
           w="100%"
           marginBottom="10px"
+          {...register("password", {
+            required: "Required",
+          })}
         />
-        {/* {errors.email && <FormErrorMessage>Invalid Email</FormErrorMessage>} */}
+        {errors.password && <FormErrorMessage>Required</FormErrorMessage>}
       </FormControl>
       <Button type="submit" w="100%" variant="primary">
         Sign up

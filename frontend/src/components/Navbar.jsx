@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Flex,
   Heading,
@@ -22,9 +22,11 @@ import {
   AiOutlinePlusSquare,
 } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
+import PostModal from "./PostModal";
 
 const Navbar = () => {
   const [searchBarDisplay] = useMediaQuery("(min-width:741px)");
+  const [showPostModal, setShowPostModal] = useState(false);
   return (
     <Flex justify="center" w="100%" h="60px" borderBottom="1px solid #efefef">
       <Flex w="100%" maxW="950px" h="60px" justify="space-between">
@@ -63,7 +65,15 @@ const Navbar = () => {
             <Icon as={BiMessageRoundedDetail} h="100%" w="80%" />
           </Flex>
           <Flex w="20%" maxW="40px" justify="center" align="center">
-            <Icon as={AiOutlinePlusSquare} h="100%" w="80%" />
+            <Icon
+              as={AiOutlinePlusSquare}
+              h="100%"
+              w="80%"
+              cursor="pointer"
+              onClick={() => {
+                setShowPostModal(true);
+              }}
+            />
           </Flex>
           <Flex w="20%" maxW="40px" justify="center" align="center">
             <Icon as={AiOutlineCompass} h="100%" w="80%" />
@@ -92,6 +102,12 @@ const Navbar = () => {
           </Flex>
         </HStack>
       </Flex>
+      <PostModal
+        isOpen={showPostModal}
+        onClose={() => {
+          setShowPostModal(false);
+        }}
+      />
     </Flex>
   );
 };

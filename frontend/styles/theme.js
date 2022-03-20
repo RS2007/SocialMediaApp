@@ -2,6 +2,7 @@ import { extendTheme } from "@chakra-ui/react";
 import { ButtonStyles as Button } from "./ButtonStyles";
 import { createBreakpoints } from "@chakra-ui/theme-tools";
 import { InputStyles as Input } from "./InputStyles";
+import { StepsStyleConfig as Steps } from "chakra-ui-steps";
 
 const theme = extendTheme({
   colors: {
@@ -15,6 +16,7 @@ const theme = extendTheme({
   components: {
     Button,
     Input,
+    Steps,
   },
   breakpoints: createBreakpoints({
     xxs: "0px",
