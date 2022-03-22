@@ -11,6 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Step, Steps, useSteps } from "chakra-ui-steps";
+import Cropper from "./Crop";
 import React from "react";
 
 const Upload = () => {
@@ -45,7 +46,7 @@ const Upload = () => {
 
 const steps = [
   { label: "Upload", content: <Upload /> },
-  { label: "Crop", content: <div>Hello</div> },
+  { label: "Crop", content: <Cropper image={"/instagram-logo.png"} /> },
   { label: "Details", content: <Flex>Hey</Flex> },
 ];
 
@@ -63,9 +64,7 @@ export default function PostModal({ isOpen, onClose }) {
         <ModalBody>
           <Steps activeStep={activeStep} marginBottom="20px">
             {steps.map(({ label, content }) => (
-              <Step label={label} key={label}>
-                {content}
-              </Step>
+              <Step key={label}>{content}</Step>
             ))}
           </Steps>
           {activeStep === steps.length ? (
