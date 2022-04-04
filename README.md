@@ -17,3 +17,7 @@
 - Search users
 - Randomised feed(Less priority)
 - Forgot Password
+
+### POSSIBLE BETTER PRACTICES
+
+- There is a bit of prop drilling in image upload modal , can maybe use context
