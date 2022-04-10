@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const postController = require("../controllers/post");
+const verifyMiddleware = require("../utils/verifyMiddleware");
 
-router.post("/", postController.createPost);
+router.post("/", verifyMiddleware, postController.createPost);
 router.delete("/", postController.deletePost);
 router.get("/:id", postController.getPosts);
 router.put("/:id", postController.updatePost);

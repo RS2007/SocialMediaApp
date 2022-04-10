@@ -9,7 +9,7 @@ import {
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import _axios from "../utils/_axios";
 
 export default function Register() {
   const {
@@ -21,9 +21,7 @@ export default function Register() {
   const postData = async (data) => {
     console.log(data);
     try {
-      await axios.post("http://localhost:5000/user/register", data, {
-        useCredentials: true,
-      });
+      await _axios.post("/user/register", data);
     } catch (err) {
       alert(err.message);
     }

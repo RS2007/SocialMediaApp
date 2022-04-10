@@ -7,5 +7,7 @@
     "javascriptreact",
     "typescriptreact",
     "nodejs"
-  ]
+  ],
+  "cSpell.words": ["chakra", "cloudinary"],
+  "cSpell.ignoreWords": ["DYQA", "dznsxtto"]
 }

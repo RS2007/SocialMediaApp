@@ -1,7 +1,7 @@
 import { VStack, Button } from "@chakra-ui/react";
 import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
-import getCroppedImg from "../utils/imageUtils";
+import getCroppedImg from "../../utils/imageUtils";
 /* eslint-disable react/prop-types*/
 const Crop = ({ image, setImage }) => {
   const [zoom, setZoom] = useState(1);
@@ -15,11 +15,7 @@ const Crop = ({ image, setImage }) => {
   const cropImage = async () => {
     setLoading(true);
     try {
-      const { file, url } = await getCroppedImg(
-        image,
-        croppedAreaPixels,
-        rotation
-      );
+      const { url } = await getCroppedImg(image, croppedAreaPixels, rotation);
       setImage(url);
     } catch (error) {
       alert(error.message);
