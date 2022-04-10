@@ -6,6 +6,7 @@ const ModalContainer = ({
   setImage,
   description,
   setDescription,
+  setDescriptionOverflow,
 }) => {
   return (
     <div>
@@ -14,6 +15,7 @@ const ModalContainer = ({
         setImage={setImage}
         description={description}
         setDescription={setDescription}
+        setDescriptionOverflow={setDescriptionOverflow}
       />
     </div>
   );

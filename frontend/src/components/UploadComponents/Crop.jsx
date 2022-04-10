@@ -8,7 +8,7 @@ const Crop = ({ image, setImage }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);

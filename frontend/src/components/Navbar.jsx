@@ -22,7 +22,7 @@ import {
   AiOutlinePlusSquare,
 } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import PostModal from "./PostModal";
+import PostModal from "./UploadComponents/PostModal";
 
 const Navbar = () => {
   const [searchBarDisplay] = useMediaQuery("(min-width:741px)");

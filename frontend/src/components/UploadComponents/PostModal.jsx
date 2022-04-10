@@ -35,11 +35,12 @@ export default function PostModal({ isOpen, onClose }) {
     });
     nextStep();
   };
-  const { nextStep, prevStep, activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
   const [image, setImage] = useState([]);
   const [description, setDescription] = useState("");
+  const [descriptionOverflow, setDescriptionOverflow] = useState(false);
   const draw = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: (i) => {
@@ -70,6 +71,7 @@ export default function PostModal({ isOpen, onClose }) {
                   setImage={setImage}
                   description={description}
                   setDescription={setDescription}
+                  setDescriptionOverflow={setDescriptionOverflow}
                 />
               </Step>
             ))}
@@ -135,19 +137,11 @@ export default function PostModal({ isOpen, onClose }) {
           ) : (
             <Flex width="100%" justify="flex-end">
               <Button
-                isDisabled={activeStep === 0}
-                mr={4}
-                onClick={prevStep}
-                size="sm"
-                variant="ghost"
-              >
-                Prev
-              </Button>
-              <Button
                 size="sm"
                 onClick={
                   activeStep === steps.length - 1 ? uploadImage : nextStep
                 }
+                isDisabled={descriptionOverflow}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
