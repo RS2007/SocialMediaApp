@@ -8,7 +8,9 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
+import { getUser } from "../utils/authUtils";
 const CurrentUserCard = () => {
+  console.log(getUser());
   return (
     <Grid
       h="56px"
@@ -28,9 +30,9 @@ const CurrentUserCard = () => {
       <Flex align="center" justify="center">
         <VStack spacing="0px">
           <Box>
-            <strong>Username</strong>
+            <strong>{getUser().username}</strong>
           </Box>
-          <Box color="#8e8e8e">Name</Box>
+          <Box color="#8e8e8e">{getUser().fullName}</Box>
         </VStack>
       </Flex>
       <Flex align="center" justify="center" h="100%">
@@ -40,7 +42,7 @@ const CurrentUserCard = () => {
           variant="tranparent"
           style={{ padding: "10px" }}
         >
-          Post
+          Follow
         </Button>
       </Flex>
     </Grid>

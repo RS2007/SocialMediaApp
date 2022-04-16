@@ -7,5 +7,6 @@ router.delete("/", postController.deletePost);
 router.get("/:id", postController.getPostsById);
 router.get("/", verifyMiddleware, postController.getAllPosts);
 router.put("/:id", postController.updatePost);
+router.put("/like/:id", verifyMiddleware, postController.likePost);
 
 module.exports = router;

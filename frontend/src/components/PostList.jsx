@@ -4,6 +4,7 @@ import useSWR from "swr";
 import PostCard from "./PostCard";
 import CurrentUserCard from "./CurrentUserCard";
 import { fetcher } from "../utils/_axios";
+import { getUser } from "../utils/authUtils";
 
 export default function PostList() {
   const { data, isValidating: isFetching, error } = useSWR("/post", fetcher);
@@ -33,8 +34,14 @@ export default function PostList() {
           data.map((elem) => (
             <PostCard
               picURL={elem.pic}
+              desc={elem.desc}
               key={elem}
               username={elem.user.username}
+              likeCount={elem.likes.length}
+              isPostLiked={elem.likes.includes(getUser().id)}
+              commentCount={elem.comments.length}
+              id={elem._id}
+              createdTime={elem.createdAt}
             />
           ))}
       </GridItem>

@@ -119,14 +119,16 @@ module.exports.followUser = async (req, res) => {
 module.exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const { _id: id, password: hashedPassword } = await userModel
-      .findOne({ email })
-      .lean()
-      .exec();
+    const {
+      _id: id,
+      password: hashedPassword,
+      username,
+      fullName,
+    } = await userModel.findOne({ email }).lean().exec();
     console.log(password, hashedPassword);
     const passwordCorrect = await compare(password, hashedPassword);
     if (passwordCorrect) {
-      res.cookie("USER_DETAILS", { id });
+      res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }));
       res.status(200).send("Succesful Login");
     } else {
       res.status(400).json({ error: "Incorrect Password" });

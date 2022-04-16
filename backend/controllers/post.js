@@ -52,6 +52,7 @@ module.exports.updatePost = async (req, res) => {
 
 module.exports.getAllPosts = async (req, res) => {
   try {
+    console.log(res.locals);
     const { id: userId } = res.locals;
     console.log(userId);
     const user = await userModel.findById(userId).lean().exec();
@@ -63,5 +64,27 @@ module.exports.getAllPosts = async (req, res) => {
   } catch (err) {
     console.log(err.message);
     res.status(500).send("errorr");
+  }
+};
+
+module.exports.likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: userId } = res.locals;
+    const post = await postModel.findById(id).exec();
+    console.log(id);
+    if (post.likes.includes(userId)) {
+      await postModel.findByIdAndUpdate(id, {
+        $pull: { likes: userId },
+      });
+      res.status(200).send("Like successful");
+    } else {
+      await postModel.findByIdAndUpdate(id, {
+        $push: { likes: userId },
+      });
+      res.status(200).send("Unlike successful");
+    }
+  } catch (error) {
+    res.status(500).send("error");
   }
 };
