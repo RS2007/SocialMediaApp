@@ -7,4 +7,6 @@ const _axios = Axios.create({
   withCredentials: true,
 });
 
+export const fetcher = (key) => _axios.get(key).then((res) => res.data);
+
 export default _axios;

@@ -3,7 +3,7 @@ import React, { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../utils/imageUtils";
 /* eslint-disable react/prop-types*/
-const Crop = ({ image, setImage }) => {
+const Crop = ({ image, setImage, setCropped }) => {
   const [zoom, setZoom] = useState(1);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
@@ -37,8 +37,14 @@ const Crop = ({ image, setImage }) => {
         onZoomChange={setZoom}
         onRotationChange={setRotation}
       />
-      <Button type="primary" onClick={cropImage}>
-        Upload
+      <Button
+        type="primary"
+        onClick={() => {
+          cropImage();
+          setCropped(true);
+        }}
+      >
+        Crop
       </Button>
     </VStack>
   );

@@ -3,6 +3,7 @@ const userController = require("../controllers/user.js");
 const verifyMiddleware = require("../utils/verifyMiddleware.js");
 
 router.get("/followers", verifyMiddleware, userController.getFollowers);
+router.get("/search", userController.getUserByUsernameRegex);
 router.post("/register", userController.register);
 router.post("/login", userController.login);
 router.get("/following", verifyMiddleware, userController.getFollowing);

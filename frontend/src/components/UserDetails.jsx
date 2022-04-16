@@ -1,7 +1,8 @@
 import { Box, Flex, Image, Center } from "@chakra-ui/react";
 import { React } from "react";
 
-const UserDetails = () => {
+/* eslint-disable react/prop-types*/
+const UserDetails = ({ username }) => {
   return (
     <Flex w="100%" h="75px" align="center">
       <Flex w="25%" h="100%">
@@ -21,7 +22,7 @@ const UserDetails = () => {
           marginLeft="20px"
         >
           <Box>
-            <strong>Shady Place</strong>
+            <strong>{username}</strong>
           </Box>
         </Center>
       </Flex>

@@ -18,6 +18,21 @@ module.exports.getUserById = async (req, res) => {
   }
 };
 
+module.exports.getUserByUsernameRegex = async (req, res) => {
+  try {
+    const { q } = req.query;
+    console.log(q);
+    const searchUsers = await userModel.find({
+      username: new RegExp(q, "i"),
+    });
+    console.log(searchUsers);
+    res.status(200).json(searchUsers);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ error: "Database error" });
+  }
+};
+
 module.exports.getFollowers = async (req, res) => {
   try {
     const { id } = res.locals;

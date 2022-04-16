@@ -52,7 +52,15 @@ const Navbar = () => {
           </Heading>
         </Flex>
         {searchBarDisplay && (
-          <Flex w="25%" h="60px" align="center" justify="100%" colSpan={8}>
+          <Flex
+            w="25%"
+            h="fit-content"
+            align="center"
+            justify="center"
+            paddingTop="10px"
+            colSpan={8}
+            overflow="visible"
+          >
             <SearchBar />
           </Flex>
         )}

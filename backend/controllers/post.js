@@ -1,5 +1,6 @@
 const { _cloudinary } = require("../config/_cloudinary");
 const postModel = require("../models/post");
+const userModel = require("../models/user");
 
 module.exports.createPost = async (req, res) => {
   try {
@@ -31,7 +32,7 @@ module.exports.deletePost = async (req, res) => {
   }
 };
 
-module.exports.getPosts = async (req, res) => {
+module.exports.getPostsById = async (req, res) => {
   try {
     console.log("hello");
   } catch (error) {
@@ -46,5 +47,21 @@ module.exports.updatePost = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Database error" });
+  }
+};
+
+module.exports.getAllPosts = async (req, res) => {
+  try {
+    const { id: userId } = res.locals;
+    console.log(userId);
+    const user = await userModel.findById(userId).lean().exec();
+    const posts = await postModel
+      .find({ user: user.followers })
+      .populate("user")
+      .exec();
+    res.json(posts);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send("errorr");
   }
 };

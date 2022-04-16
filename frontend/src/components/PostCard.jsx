@@ -2,7 +2,8 @@ import React from "react";
 import { Flex, Image } from "@chakra-ui/react";
 import CommentInput from "./CommentInput";
 import UserDetails from "./UserDetails";
-const PostCard = () => {
+/* eslint-disable react/prop-types*/
+const PostCard = ({ picURL, username }) => {
   return (
     <Flex
       direction="column"
@@ -11,9 +12,10 @@ const PostCard = () => {
       justify-content="center"
       align="center"
       border="1px solid #dbdbdb"
+      marginBottom="20px"
     >
-      <UserDetails />
-      <Image src="https://picsum.photos/200/300" w="100%" />
+      <UserDetails username={username} />
+      <Image src={picURL} w="100%" />
       <CommentInput />
     </Flex>
   );
