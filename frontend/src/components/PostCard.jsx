@@ -4,7 +4,7 @@ import CommentInput from "./CommentInput";
 import UserDetails from "./UserDetails";
 import PostActions from "../components/PostActions";
 import ExpandedPostCard from "./ExpandedPostCard";
-import { getDifferenceInHoursFromPresent } from "../utils/dateUtils";
+import { timeDifferenceInAppropriateUnit } from "../utils/dateUtils";
 
 /* eslint-disable react/prop-types*/
 const PostCard = ({
@@ -17,6 +17,7 @@ const PostCard = ({
   isPostLiked,
   commentCount,
   commentArray,
+  mutateSWR,
 }) => {
   const [likeCountState, setLikeCountState] = useState(0);
   const [showCommentModal, setShowCommentModal] = useState(false);
@@ -74,6 +75,7 @@ const PostCard = ({
         postId={id}
         createdTime={createdTime}
         commentArray={commentArray}
+        mutateSWR={mutateSWR}
       />
       <Flex
         justify="left"
@@ -83,9 +85,10 @@ const PostCard = ({
         color="rgb(142, 142, 142)"
         margin="5px 0px"
       >
-        {getDifferenceInHoursFromPresent(createdTime)} Hours
+        {timeDifferenceInAppropriateUnit(createdTime).magnitude}{" "}
+        {timeDifferenceInAppropriateUnit(createdTime).unit}
       </Flex>
-      <CommentInput postId={id} />
+      <CommentInput postId={id} mutateSWR={mutateSWR} />
     </Flex>
   );
 };

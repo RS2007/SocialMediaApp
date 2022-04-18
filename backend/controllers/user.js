@@ -54,7 +54,7 @@ module.exports.register = async (req, res) => {
       username,
     });
     const { _id: id } = await newUser.save();
-    res.cookie("USER_DETAILS", { id });
+    res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }));
     res.status(200).send("You have registered succesfully");
   } catch (error) {
     console.log(error.message);

@@ -23,10 +23,12 @@ import {
 } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import PostModal from "./UploadComponents/PostModal";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [searchBarDisplay] = useMediaQuery("(min-width:741px)");
   const [showPostModal, setShowPostModal] = useState(false);
+  const navigate = useNavigate();
   return (
     <Flex justify="center" w="100%" h="60px" borderBottom="1px solid #efefef">
       <Flex w="100%" maxW="950px" h="60px" justify="space-between">
@@ -67,7 +69,14 @@ const Navbar = () => {
 
         <HStack w="250px">
           <Flex w="20%" maxW="40px" justify="center" align="center">
-            <Icon as={FaHome} h="100%" w="80%" />
+            <Icon
+              as={FaHome}
+              h="100%"
+              w="80%"
+              onClick={() => {
+                navigate("/");
+              }}
+            />
           </Flex>
           <Flex w="20%" maxW="40px" justify="center" align="center">
             <Icon as={BiMessageRoundedDetail} h="100%" w="80%" />
@@ -99,7 +108,9 @@ const Navbar = () => {
                 colorScheme="white"
               />
               <MenuList>
-                <MenuItem>Profile</MenuItem>
+                <MenuItem>
+                  <Link to="/profile">Profile</Link>
+                </MenuItem>
                 <MenuItem>Saved</MenuItem>
                 <MenuItem>Settings</MenuItem>
                 <MenuItem>Switch Accounts</MenuItem>

@@ -7,7 +7,12 @@ import { fetcher } from "../utils/_axios";
 import { getUser } from "../utils/authUtils";
 
 export default function PostList() {
-  const { data, isValidating: isFetching, error } = useSWR("/post", fetcher);
+  const {
+    data,
+    isValidating: isFetching,
+    error,
+    mutate,
+  } = useSWR("/post", fetcher);
 
   if (error) {
     return <div>{error.message}</div>;
@@ -43,6 +48,7 @@ export default function PostList() {
               createdTime={elem.createdAt}
               commentCount={elem.comments.length}
               commentArray={elem.comments}
+              mutateSWR={mutate}
             />
           ))}
       </GridItem>

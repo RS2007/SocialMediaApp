@@ -13,6 +13,7 @@ import {
   Icon,
   Link,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import { FaFacebookSquare } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -20,10 +21,12 @@ import axios from "axios";
 import phones from "/phones.png";
 import "./login.css";
 import Register from "../components/Register";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [showRegister, setShowRegister] = useState(false);
-
+  const toast = useToast();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -33,9 +36,19 @@ const Login = () => {
   const postData = async (data) => {
     console.log(data);
     try {
-      await axios.post("http://localhost:5000/user/login", data, {
+      const res = await axios.post("http://localhost:5000/user/login", data, {
         withCredentials: true,
       });
+      if (res.status === 200) {
+        toast({
+          title: "Login successful.",
+          description: "Welcome to instaclone",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/");
+      }
     } catch (error) {
       alert(error.message);
     }

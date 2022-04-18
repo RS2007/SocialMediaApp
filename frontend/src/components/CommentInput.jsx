@@ -12,19 +12,14 @@ import {
 import { VscSmiley } from "react-icons/vsc";
 import _axios from "../utils/_axios";
 /*eslint-disable react/prop-types*/
-const CommentInput = ({ postId, setCommentArrayState }) => {
+const CommentInput = ({ postId, mutateSWR }) => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const handleCommentSubmit = async () => {
     try {
       setLoading(true);
-      const res = await _axios.post("/comment/create", { content, postId });
-      if (res.status === 200) {
-        setCommentArrayState((prevState) => [
-          ...prevState,
-          { content, postId },
-        ]);
-      }
+      await _axios.post("/comment/create", { content, postId });
+      mutateSWR();
     } catch (error) {
       console.log(error.message);
     } finally {

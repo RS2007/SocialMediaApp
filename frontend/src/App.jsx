@@ -4,8 +4,9 @@ import Login from "./pages/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Flex } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
-import Register from "./components/Register";
 import PostList from "./components/PostList";
+import { ProtectedRoute } from "./common/SpecialRoutes";
+import UserProfilePage from "./pages/UserProfilePage";
 
 function App() {
   return (
@@ -15,13 +16,25 @@ function App() {
         <Route
           path="/"
           element={
-            <Flex direction="column" justify="center" align="center" w="100%">
-              <Navbar />
-              <PostList />
-            </Flex>
+            <ProtectedRoute>
+              <Flex direction="column" justify="center" align="center" w="100%">
+                <Navbar />
+                <PostList />
+              </Flex>
+            </ProtectedRoute>
           }
         />
-        <Route path="/abcd" element={<Register />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Flex direction="column" justify="center" align="center" w="100%">
+                <Navbar />
+                <UserProfilePage />
+              </Flex>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

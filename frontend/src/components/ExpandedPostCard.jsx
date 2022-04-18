@@ -10,11 +10,10 @@ import {
   Flex,
   VStack,
   Divider,
-  Spinner,
 } from "@chakra-ui/react";
 import CommentInput from "./CommentInput";
 import UserDetails from "./UserDetails";
-import { getDifferenceInHoursFromPresent } from "../utils/dateUtils";
+import { timeDifferenceInAppropriateUnit } from "../utils/dateUtils";
 
 /* eslint-disable react/prop-types*/
 export default function ExpandedPostCard({
@@ -26,6 +25,7 @@ export default function ExpandedPostCard({
   postId,
   createdTime,
   commentArray,
+  mutateSWR,
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -33,7 +33,7 @@ export default function ExpandedPostCard({
       <ModalContent minW="50vw" minH="80vh">
         <ModalBody padding="0">
           <Grid gridTemplateColumns="1.5fr 1fr">
-            <GridItem border="2px solid black">
+            <GridItem>
               <Image src={picURL} h="80vh" />
             </GridItem>
             <GridItem>
@@ -59,7 +59,8 @@ export default function ExpandedPostCard({
                   color="rgb(142, 142, 142)"
                   margin="5px 0px"
                 >
-                  {getDifferenceInHoursFromPresent(createdTime)} Hours
+                  {timeDifferenceInAppropriateUnit(createdTime).magnitude}{" "}
+                  {timeDifferenceInAppropriateUnit(createdTime).unit}
                 </Flex>
                 <Divider />
                 <Flex justify="left" w="95%" direction="column">
@@ -71,7 +72,7 @@ export default function ExpandedPostCard({
                   ))}
                 </Flex>
                 )
-                <CommentInput postId={postId} />
+                <CommentInput postId={postId} mutateSWR={mutateSWR} />
               </VStack>
             </GridItem>
           </Grid>

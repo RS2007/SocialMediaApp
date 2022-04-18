@@ -5,13 +5,17 @@ import {
   Input,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { FaFacebook } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import _axios from "../utils/_axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+  const toast = useToast();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,7 +25,17 @@ export default function Register() {
   const postData = async (data) => {
     console.log(data);
     try {
-      await _axios.post("/user/register", data);
+      const res = await _axios.post("/user/register", data);
+      if (res.status === 200) {
+        toast({
+          title: "Registration successful.",
+          description: "Welcome to instaclone",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+        navigate("/");
+      }
     } catch (err) {
       alert(err.message);
     }

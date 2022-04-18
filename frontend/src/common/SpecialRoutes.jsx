@@ -1,0 +1,12 @@
+import { isLoggedIn } from "../utils/authUtils";
+
+const LOGIN_URL = "http://localhost:3000";
+
+/* eslint-disable react/prop-types*/
+export const ProtectedRoute = ({ children }) => {
+  if (!isLoggedIn()) {
+    window.location.href = LOGIN_URL;
+    return null;
+  }
+  return children;
+};
