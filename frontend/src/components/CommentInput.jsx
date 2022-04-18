@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Icon,
   Flex,
@@ -10,7 +10,27 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { VscSmiley } from "react-icons/vsc";
-const CommentInput = () => {
+import _axios from "../utils/_axios";
+/*eslint-disable react/prop-types*/
+const CommentInput = ({ postId, setCommentArrayState }) => {
+  const [content, setContent] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleCommentSubmit = async () => {
+    try {
+      setLoading(true);
+      const res = await _axios.post("/comment/create", { content, postId });
+      if (res.status === 200) {
+        setCommentArrayState((prevState) => [
+          ...prevState,
+          { content, postId },
+        ]);
+      }
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Divider />
@@ -19,13 +39,21 @@ const CommentInput = () => {
           <InputLeftElement>
             <Icon as={VscSmiley} />
           </InputLeftElement>
-          <Input placeholder="Add a comment" />
+          <Input
+            placeholder="Add a comment"
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value);
+            }}
+          />
           <InputRightElement padding="23px 4%">
             <Button
               colorScheme="white"
               color="active"
               variant="tranparent"
               style={{ padding: "10px" }}
+              onClick={handleCommentSubmit}
+              isLoading={loading}
             >
               Post
             </Button>

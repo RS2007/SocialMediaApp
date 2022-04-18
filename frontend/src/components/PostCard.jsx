@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Flex, Image } from "@chakra-ui/react";
 import CommentInput from "./CommentInput";
 import UserDetails from "./UserDetails";
-import PostActions from "../PostActions";
-import moment from "moment";
+import PostActions from "../components/PostActions";
+import ExpandedPostCard from "./ExpandedPostCard";
+import { getDifferenceInHoursFromPresent } from "../utils/dateUtils";
 
 /* eslint-disable react/prop-types*/
 const PostCard = ({
@@ -11,12 +12,14 @@ const PostCard = ({
   desc,
   username,
   likeCount,
-  commentCount,
   createdTime,
   id,
   isPostLiked,
+  commentCount,
+  commentArray,
 }) => {
   const [likeCountState, setLikeCountState] = useState(0);
+  const [showCommentModal, setShowCommentModal] = useState(false);
   useEffect(() => {
     setLikeCountState(likeCount);
   }, []);
@@ -36,6 +39,7 @@ const PostCard = ({
         id={id}
         isPostLiked={isPostLiked}
         setLikeCountState={setLikeCountState}
+        setShowCommentModal={setShowCommentModal}
       />
       <Flex justify="left" w="95%" marginBottom="5px">
         Liked by &nbsp;<strong>{likeCountState} </strong>&nbsp;people
@@ -52,9 +56,25 @@ const PostCard = ({
         fontSize="16px"
         color="rgb(142, 142, 142)"
         margin="5px 0px"
+        cursor="pointer"
+        onClick={() => {
+          setShowCommentModal(true);
+        }}
       >
         View all {commentCount} comments
       </Flex>
+      <ExpandedPostCard
+        isOpen={showCommentModal}
+        onClose={() => {
+          setShowCommentModal(false);
+        }}
+        picURL={picURL}
+        username={username}
+        desc={desc}
+        postId={id}
+        createdTime={createdTime}
+        commentArray={commentArray}
+      />
       <Flex
         justify="left"
         w="95%"
@@ -63,12 +83,9 @@ const PostCard = ({
         color="rgb(142, 142, 142)"
         margin="5px 0px"
       >
-        {Math.floor(
-          Math.abs(Number(new Date()) - moment(createdTime)._d.getTime()) / 36e5
-        )}{" "}
-        Hours
+        {getDifferenceInHoursFromPresent(createdTime)} Hours
       </Flex>
-      <CommentInput />
+      <CommentInput postId={id} />
     </Flex>
   );
 };

@@ -39,9 +39,10 @@ export default function PostList() {
               username={elem.user.username}
               likeCount={elem.likes.length}
               isPostLiked={elem.likes.includes(getUser().id)}
-              commentCount={elem.comments.length}
               id={elem._id}
               createdTime={elem.createdAt}
+              commentCount={elem.comments.length}
+              commentArray={elem.comments}
             />
           ))}
       </GridItem>

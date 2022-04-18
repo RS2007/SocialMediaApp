@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Divider, Flex, HStack, Icon } from "@chakra-ui/react";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { BiMessageRounded } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
-import { HiHeart } from "react-icons/hi";
-import _axios from "./utils/_axios";
-
+import _axios from "../utils/_axios";
 /* eslint-disable react/prop-types*/
-export default function PostActions({ id, isPostLiked, setLikeCountState }) {
+export default function PostActions({
+  id,
+  isPostLiked,
+  setLikeCountState,
+  setShowCommentModal,
+}) {
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
     setIsLiked(isPostLiked);
@@ -36,13 +39,20 @@ export default function PostActions({ id, isPostLiked, setLikeCountState }) {
       >
         <HStack>
           <Icon
-            as={isLiked ? HiHeart : AiOutlineHeart}
+            as={isLiked ? AiFillHeart : AiOutlineHeart}
             fontSize="2rem"
             cursor="pointer"
             color={isLiked ? "red" : "black"}
             onClick={handleLike}
           />
-          <Icon as={BiMessageRounded} fontSize="2rem" cursor="pointer" />
+          <Icon
+            as={BiMessageRounded}
+            fontSize="2rem"
+            cursor="pointer"
+            onClick={() => {
+              setShowCommentModal(true);
+            }}
+          />
         </HStack>
         <Icon
           as={BsBookmark}

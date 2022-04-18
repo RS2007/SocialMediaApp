@@ -15,7 +15,7 @@ const postSchema = new Schema(
       type: String,
       max: [150, "Description character limit exceeded"],
     },
-    comments: [{ type: Schema.Types.ObjectId }],
+    comments: [{ type: Schema.Types.ObjectId, ref: "comments" }],
     likes: [{ type: Schema.Types.ObjectId }],
   },
   { timestamps: true }

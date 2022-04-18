@@ -15,9 +15,18 @@
 - Infinite scroll(Hopefully)
 - Messaging using sockets(Less priority)
 - Search users
-- Randomised feed(Less priority)
+- Randomized feed(Less priority)
 - Forgot Password
 
-### POSSIBLE BETTER PRACTICES
+### PROGRESS
 
-- There is a bit of prop drilling in image upload modal , can maybe use context
+- User can login,see posts of the people he follows, like and comment
+
+- TODO:
+  - Replace heavy prop drilling with context/redux-toolkit(also optimistic rendering for comments)
+  - Register Page
+  - Profile page(will have to implement follow user and edit profile with regards to backend)
+  - This will be version 1 of the project
+  - Host on heroku/netlify and ask people to upload photos
+  - Once there are enough photos, randomized feed with infinite scroll and sockets for realtime messaging and notifications
+  - Facebook Auth(easy enough)[check how instagram onboards people after fb auth]

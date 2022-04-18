@@ -18,7 +18,7 @@ const UserDetails = ({ username }) => {
           h="70px"
           direction="column"
           w="auto"
-          fontSize="0.8rem"
+          fontSize="1rem"
           marginLeft="20px"
         >
           <Box>

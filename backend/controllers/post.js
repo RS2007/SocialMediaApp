@@ -59,8 +59,20 @@ module.exports.getAllPosts = async (req, res) => {
     const posts = await postModel
       .find({ user: user.followers })
       .populate("user")
+      .populate([
+        {
+          path: "comments",
+          model: "comments",
+          select: "content",
+          populate: {
+            path: "user",
+            model: "users",
+            select: "username",
+          },
+        },
+      ])
       .exec();
-    res.json(posts);
+    res.status(200).json(posts);
   } catch (err) {
     console.log(err.message);
     res.status(500).send("errorr");
