@@ -79,6 +79,31 @@ module.exports.getAllPosts = async (req, res) => {
   }
 };
 
+module.exports.getAllPostsOfUser = async (req, res) => {
+  try {
+    const { id: userId } = res.locals;
+    const userPosts = await postModel
+      .find({ user: userId })
+      .populate("user", { _id: 1, username: 1 })
+      .populate([
+        {
+          path: "comments",
+          model: "comments",
+          select: "content",
+          populate: {
+            path: "user",
+            model: "users",
+            select: "username",
+          },
+        },
+      ]);
+    res.status(200).json(userPosts);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("error");
+  }
+};
+
 module.exports.likePost = async (req, res) => {
   try {
     const { id } = req.params;

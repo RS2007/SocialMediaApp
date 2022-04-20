@@ -6,6 +6,10 @@ import moment from "moment";
  * @returns {Number}
  */
 
+export const getDifferenceInSecondsFromPresent = (time) =>
+  Math.floor(Math.abs(Number(new Date()) - moment(time)._d.getTime()) / 1e3);
+export const getDifferenceInMinutesFromPresent = (time) =>
+  Math.floor(Math.abs(Number(new Date()) - moment(time)._d.getTime()) / 6e4);
 export const getDifferenceInHoursFromPresent = (time) =>
   Math.floor(Math.abs(Number(new Date()) - moment(time)._d.getTime()) / 36e5);
 
@@ -25,6 +29,8 @@ export const getDifferenceInMonthsFromPresent = (time) =>
   );
 
 const DATE_SCALE_ENUM = {
+  Seconds: getDifferenceInSecondsFromPresent,
+  Minutes: getDifferenceInMinutesFromPresent,
   Hours: getDifferenceInHoursFromPresent,
   Days: getDifferenceInDaysFromPresent,
   Weeks: getDifferenceInWeeksFromPresent,
