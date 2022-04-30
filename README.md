@@ -24,8 +24,8 @@
 
 - TODO:
   - Replace heavy prop drilling with context/redux-toolkit(also optimistic rendering for comments)
-  - Register Page
   - Profile page(will have to implement follow user and edit profile with regards to backend)
+  - In profile page how to make the expandedPostModal work.
   - This will be version 1 of the project
   - Host on heroku/netlify and ask people to upload photos
   - Once there are enough photos, randomized feed with infinite scroll and sockets for realtime messaging and notifications

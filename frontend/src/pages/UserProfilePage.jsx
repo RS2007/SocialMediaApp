@@ -13,6 +13,7 @@ import {
   TabPanel,
   Grid,
   GridItem,
+  Spinner,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { getUser } from "../utils/authUtils";
@@ -31,6 +32,9 @@ export default function UserProfilePage() {
     error,
     mutate,
   } = useSWR("/post/user/", fetcher);
+  if (error) {
+    return <div>{error.message}</div>;
+  }
   return (
     <VStack w="100%" maxW="950px" marginTop="40px">
       <Flex w="100%" h="200px" gap="10%">
@@ -84,6 +88,7 @@ export default function UserProfilePage() {
               gap="10px"
               w="100%"
             >
+              {isFetching && <Spinner />}
               {userPosts?.map((elem) => (
                 <GridItem
                   key={elem}

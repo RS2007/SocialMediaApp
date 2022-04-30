@@ -8,8 +8,10 @@ import moment from "moment";
 
 export const getDifferenceInSecondsFromPresent = (time) =>
   Math.floor(Math.abs(Number(new Date()) - moment(time)._d.getTime()) / 1e3);
+
 export const getDifferenceInMinutesFromPresent = (time) =>
   Math.floor(Math.abs(Number(new Date()) - moment(time)._d.getTime()) / 6e4);
+
 export const getDifferenceInHoursFromPresent = (time) =>
   Math.floor(Math.abs(Number(new Date()) - moment(time)._d.getTime()) / 36e5);
 
