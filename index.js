@@ -36,7 +36,7 @@ app.use(
     ],
   })
 );
-app.use("*", (req, res) => {
+app.use("/", (req, res) => {
   res.sendFile(path.resolve("frontend", "dist", "index.html"));
 });
 app.use("/api/user", userRoutes);
