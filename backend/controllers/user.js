@@ -54,7 +54,9 @@ module.exports.register = async (req, res) => {
       username,
     });
     const { _id: id } = await newUser.save();
-    res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }));
+    res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }), {
+      secure: true,
+    });
     res.status(200).send("You have registered succesfully");
   } catch (error) {
     console.log(error.message);
@@ -128,7 +130,9 @@ module.exports.login = async (req, res) => {
     console.log(password, hashedPassword);
     const passwordCorrect = await compare(password, hashedPassword);
     if (passwordCorrect) {
-      res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }));
+      res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }), {
+        secure: true,
+      });
       res.status(200).send("Succesful Login");
     } else {
       res.status(400).json({ error: "Incorrect Password" });
