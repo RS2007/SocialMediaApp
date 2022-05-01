@@ -26,7 +26,11 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:9001",
+      "https://social-media-app-five-nu.vercel.app",
+    ],
   })
 );
 app.use("/user", userRoutes);

@@ -1,6 +1,8 @@
 import { isLoggedIn } from "../utils/authUtils";
 
-const LOGIN_URL = "http://localhost:3000/login";
+const LOGIN_URL = import.meta.env.PROD
+  ? "https://social-media-app-five-nu.vercel.app/login"
+  : "http://localhost:3000/login";
 
 /* eslint-disable react/prop-types*/
 export const ProtectedRoute = ({ children }) => {

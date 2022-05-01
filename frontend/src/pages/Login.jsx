@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { FaFacebookSquare } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import _axios from "../utils/_axios";
 import phones from "/phones.png";
 import "./login.css";
 import Register from "../components/Register";
@@ -36,9 +36,7 @@ const Login = () => {
   const postData = async (data) => {
     console.log(data);
     try {
-      const res = await axios.post("http://localhost:5000/user/login", data, {
-        withCredentials: true,
-      });
+      const res = await _axios.post("/user/login", data);
       if (res.status === 200) {
         toast({
           title: "Login successful.",

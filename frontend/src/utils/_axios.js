@@ -1,6 +1,8 @@
 import Axios from "axios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = import.meta.env.PROD
+  ? "https://api-instaclone-2022.herokuapp.com/"
+  : "http://localhost:5000";
 
 const _axios = Axios.create({
   baseURL: API_URL,
