@@ -55,6 +55,7 @@ module.exports.register = async (req, res) => {
     });
     const { _id: id } = await newUser.save();
     res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }), {
+      sameSite: "none",
       secure: true,
     });
     res.status(200).send("You have registered succesfully");
@@ -131,7 +132,8 @@ module.exports.login = async (req, res) => {
     const passwordCorrect = await compare(password, hashedPassword);
     if (passwordCorrect) {
       res.cookie("USER_DETAILS", JSON.stringify({ id, username, fullName }), {
-        secure: true,
+        sameSite: "none",
+        secure: "true",
       });
       res.status(200).send("Succesful Login");
     } else {
