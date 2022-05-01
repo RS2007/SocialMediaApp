@@ -12,7 +12,11 @@ const commentRoutes = require("./routes/comments");
 
 const connectToDB = async () => {
   try {
-    const hasConnected = await mongoose.connect(process.env.DB_URL);
+    const hasConnected = await mongoose.connect(
+      process.env.NODE_ENV === "production"
+        ? "mongodb+srv://admin123:admin123@cluster0.jo7q6.mongodb.net/mydb?retryWrites=true&w=majority"
+        : process.env.DB_URL
+    );
     if (hasConnected) console.log("Conneted to database");
   } catch (err) {
     console.log(err.message);
