@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const API_URL = import.meta.env.PROD
-  ? "https://pure-ravine-09795.herokuapp.com/"
+  ? "https://pure-ravine-09795.herokuapp.com/api"
   : "http://localhost:5000";
 
 const _axios = Axios.create({
