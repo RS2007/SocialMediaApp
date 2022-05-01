@@ -40,12 +40,13 @@ app.use(
     ],
   })
 );
-app.use("/", (req, res) => {
-  res.sendFile(path.resolve("frontend", "dist", "index.html"));
-});
+
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/", (req, res) => {
+  res.sendFile(path.resolve("frontend", "dist", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log("Server listening at " + PORT);
