@@ -29,6 +29,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:9001",
+      "https://socialmediaapp-cel.pages.dev/",
       "https://social-media-app-five-nu.vercel.app",
     ],
   })
