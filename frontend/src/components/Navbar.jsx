@@ -22,8 +22,8 @@ import {
   AiOutlinePlusSquare,
 } from "react-icons/ai";
 import { HiOutlineUserCircle } from "react-icons/hi";
-import PostModal from "./UploadComponents/PostModal";
 import { Link, useNavigate } from "react-router-dom";
+import TestComponent from "./TestComponent";
 
 const Navbar = () => {
   const [searchBarDisplay] = useMediaQuery("(min-width:741px)");
@@ -121,7 +121,7 @@ const Navbar = () => {
           </Flex>
         </HStack>
       </Flex>
-      <PostModal
+      <TestComponent
         isOpen={showPostModal}
         onClose={() => {
           setShowPostModal(false);
