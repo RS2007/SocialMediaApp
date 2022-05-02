@@ -51,6 +51,13 @@ export default function PostList() {
               mutateSWR={mutate}
             />
           ))}
+        {!isFetching && data.length === 0 && (
+          <div>
+            Nothing to show over here, follow users to see their posts,also you
+            can post an image and see your profile by clicking on buttons in the
+            navbar
+          </div>
+        )}
       </GridItem>
       <GridItem>
         <CurrentUserCard />

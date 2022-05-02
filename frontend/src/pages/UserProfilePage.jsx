@@ -115,6 +115,7 @@ export default function UserProfilePage() {
                     createdTime={elem.createdAt}
                     commentArray={elem.comments}
                     mutateSWR={mutate}
+                    isPostLiked={elem.likes.includes(getUser().id)}
                   />
                 </GridItem>
               ))}

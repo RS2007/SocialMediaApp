@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import CommentInput from "./CommentInput";
 import UserDetails from "./UserDetails";
+import PostActions from "./PostActions";
 import { timeDifferenceInAppropriateUnit } from "../utils/dateUtils";
 
 /* eslint-disable react/prop-types*/
@@ -26,6 +27,7 @@ export default function ExpandedPostCard({
   createdTime,
   commentArray,
   mutateSWR,
+  isPostLiked,
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -63,6 +65,7 @@ export default function ExpandedPostCard({
                   {timeDifferenceInAppropriateUnit(createdTime).unit}
                 </Flex>
                 <Divider />
+                <PostActions isPostLiked={isPostLiked} id={postId} />
                 <Flex justify="left" w="95%" direction="column">
                   {commentArray.map((elem) => (
                     <span key={elem}>

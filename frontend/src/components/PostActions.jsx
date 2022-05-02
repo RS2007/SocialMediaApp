@@ -21,7 +21,9 @@ export default function PostActions({
       const res = await _axios.put("post/like/" + id);
       if (res.status === 200) {
         setIsLiked((prevState) => !prevState);
-        setLikeCountState((prevState) => prevState + (isLiked ? -1 : 1));
+        setLikeCountState
+          ? setLikeCountState((prevState) => prevState + (isLiked ? -1 : 1))
+          : "";
         console.log(isLiked);
       }
     } catch (error) {
@@ -50,7 +52,7 @@ export default function PostActions({
             fontSize="2rem"
             cursor="pointer"
             onClick={() => {
-              setShowCommentModal(true);
+              setShowCommentModal ? setShowCommentModal(true) : "";
             }}
           />
         </HStack>

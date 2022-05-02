@@ -57,7 +57,7 @@ module.exports.getAllPosts = async (req, res) => {
     console.log(userId);
     const user = await userModel.findById(userId).lean().exec();
     const posts = await postModel
-      .find({ user: user.followers })
+      .find({ user: user.following })
       .populate("user")
       .populate([
         {
@@ -72,6 +72,7 @@ module.exports.getAllPosts = async (req, res) => {
         },
       ])
       .exec();
+    console.log(posts);
     res.status(200).json(posts);
   } catch (err) {
     console.log(err.message);
