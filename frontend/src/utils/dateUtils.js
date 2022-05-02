@@ -49,7 +49,6 @@ export const getAppropriateUnit = (time) =>
   ];
 
 export const timeDifferenceInAppropriateUnit = (time) => {
-  console.log(getAppropriateUnit(time));
   return {
     magnitude: getAppropriateUnitMagnitude(time),
     unit:

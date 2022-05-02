@@ -7,7 +7,6 @@
  */
 const verifyMiddleware = (req, res, next) => {
   try {
-    console.log(req.cookies);
     const payload = req.cookies["USER_DETAILS"];
     res.locals = { id: JSON.parse(payload).id };
     return next();
